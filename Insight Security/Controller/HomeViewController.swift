@@ -14,6 +14,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var forgotPasswordOutlet: UIButton!
     var turnTransformation:CGFloat = 4
+    var amountOfLogin = 0
+    var delegate: loginAttempts?
+    let k = K()
     
     
     override func viewDidLoad() {
@@ -23,6 +26,7 @@ class HomeViewController: UIViewController {
         //hide forgot password button until they put in wrong password 3 times
         forgotPasswordOutlet.isHidden = true
         animateImage()
+        delegate = self
     }
     
     func animateImage() {
@@ -34,6 +38,30 @@ class HomeViewController: UIViewController {
             } completion: { (_) in
                 self.turnTransformation = 2
                 self.animateImage()
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == k.homeSignIn){
+            let destinationVC = segue.destination as! LoginViewController
+            destinationVC.delegate = self
+        }
+        else {
+            _ = segue.destination as! SignUpViewController
+        }
+    }
+}
+
+extension HomeViewController: loginAttempts {
+    func showForgotPassword() {
+        
+        print("Delegate called")
+        amountOfLogin += 1
+        
+        if (amountOfLogin == 3){
+            UIView.animate(withDuration: 2) {
+                self.forgotPasswordOutlet.isHidden = false
             }
         }
     }
