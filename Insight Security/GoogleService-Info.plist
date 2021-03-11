@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>980505651216-th6vv4h0f2ii53219621ocmnonmf8pqt.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.980505651216-th6vv4h0f2ii53219621ocmnonmf8pqt</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBBSxZaZt6vPJWt110x8SDPvwyg6YTe-1c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>980505651216</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>KingRichCoding.Insight-Security</string>
+	<key>PROJECT_ID</key>
+	<string>insight-security-67dc0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>insight-security-67dc0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:980505651216:ios:b64b08f9ebe4169dee4295</string>
+</dict>
+</plist>
