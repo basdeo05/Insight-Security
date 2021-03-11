@@ -19,6 +19,7 @@
 		DDC430D025FAA84400FBFA52 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC430CF25FAA84400FBFA52 /* LoginViewController.swift */; };
 		DDC430D325FAA85400FBFA52 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC430D225FAA85400FBFA52 /* SignUpViewController.swift */; };
 		DDDD440825FACAF8004A9C3E /* ConstantsFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDD440725FACAF8004A9C3E /* ConstantsFile.swift */; };
+		DDDD442325FAD851004A9C3E /* UserHomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDD442225FAD851004A9C3E /* UserHomePageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		DDC430CF25FAA84400FBFA52 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DDC430D225FAA85400FBFA52 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		DDDD440725FACAF8004A9C3E /* ConstantsFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsFile.swift; sourceTree = "<group>"; };
+		DDDD442225FAD851004A9C3E /* UserHomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHomePageViewController.swift; sourceTree = "<group>"; };
 		E6F167229371840EDF899A81 /* Pods-Insight Security.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Insight Security.debug.xcconfig"; path = "Target Support Files/Pods-Insight Security/Pods-Insight Security.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,6 +120,7 @@
 				DD082AC325F95C17006DAE3F /* HomeViewController.swift */,
 				DDC430CF25FAA84400FBFA52 /* LoginViewController.swift */,
 				DDC430D225FAA85400FBFA52 /* SignUpViewController.swift */,
+				DDDD442225FAD851004A9C3E /* UserHomePageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				DD082ACA25F95C17006DAE3F /* Insight_Security.xcdatamodeld in Sources */,
 				DDDD440825FACAF8004A9C3E /* ConstantsFile.swift in Sources */,
 				DDC430D025FAA84400FBFA52 /* LoginViewController.swift in Sources */,
+				DDDD442325FAD851004A9C3E /* UserHomePageViewController.swift in Sources */,
 				DD082AC225F95C17006DAE3F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -55,6 +55,7 @@ class LoginViewController: UIViewController{
                     }
                     else {
                         //perform segue
+                        UserDefaults.standard.set(true, forKey: self.k.successSignIn)
                         self.performSegue(withIdentifier: self.k.signInSegue, sender: self)
                         
                     }

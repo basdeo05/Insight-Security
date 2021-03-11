@@ -39,6 +39,12 @@ class HomeViewController: UIViewController {
         delegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if (UserDefaults.standard.bool(forKey: k.successSignIn)){
+            performSegue(withIdentifier: k.homeToUserHome, sender: self)
+        }
+    }
+    
     //animation function to rotate image
     func animateImage() {
         UIView.animate(withDuration: 2) {
@@ -58,7 +64,7 @@ class HomeViewController: UIViewController {
             let destinationVC = segue.destination as! LoginViewController
             destinationVC.delegate = self
         }
-        else {
+        else if (segue.identifier == k.homeSignUp) {
             _ = segue.destination as! SignUpViewController
         }
     }

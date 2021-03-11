@@ -90,6 +90,7 @@
                         <outlet property="forgotPasswordOutlet" destination="yOO-DE-230" id="cMv-A0-EAa"/>
                         <outlet property="logoImage" destination="ocd-Oy-lFq" id="ADD-Yv-fR5"/>
                         <outlet property="titleLabel" destination="2g5-nB-SqL" id="Mez-GZ-k8P"/>
+                        <segue destination="X8q-1N-1oP" kind="show" identifier="homeToHome" id="YFH-tQ-yfl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -159,12 +160,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bBT-DN-v8e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="973.84615384615381" y="-193.3649289099526"/>
+            <point key="canvasLocation" x="974" y="-350"/>
         </scene>
-        <!--View Controller-->
+        <!--User Home Page View Controller-->
         <scene sceneID="gTd-GT-FvC">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="tCT-7D-CbC" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="tCT-7D-CbC" customClass="UserHomePageViewController" customModule="Insight_Security" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6ee-R7-HEi">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,7 +181,14 @@
                         <viewLayoutGuide key="safeArea" id="aDk-pw-a8A"/>
                         <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="2sh-et-ihs"/>
+                    <navigationItem key="navigationItem" id="2sh-et-ihs">
+                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="szH-mO-rmN">
+                            <color key="tintColor" red="0.18823529410000001" green="0.2784313725" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="signOutButtonPressed:" destination="tCT-7D-CbC" id="YMm-8V-AJl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VpJ-FX-kIq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -224,7 +232,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vE9-TD-8ee">
                                 <rect key="frame" x="133" y="474" width="125" height="56"/>
@@ -273,7 +281,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XM1-Qd-wBy"/>
+        <segue reference="YFH-tQ-yfl"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>

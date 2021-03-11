@@ -7,8 +7,10 @@
 
 import Foundation
 struct K {
+    let homeToUserHome = "homeToHome"
     let homeSignIn = "homeToLogin"
     let homeSignUp = "homeToSignUp"
     let signInSegue = "loginToUserPage"
     let signUpSegue = "signUpToUserPage"
+    let successSignIn = "successSignIn"
 }

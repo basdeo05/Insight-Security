@@ -45,6 +45,7 @@ class SignUpViewController: UIViewController {
                         print (e.localizedDescription)
                     }
                     else {
+                        UserDefaults.standard.set(true, forKey: self.k.successSignIn)
                         //perform segue
                         self.performSegue(withIdentifier: self.k.signUpSegue, sender: self)
                         
