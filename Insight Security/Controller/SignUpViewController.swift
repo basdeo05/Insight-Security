@@ -30,11 +30,13 @@ class SignUpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    //make sure email and password fields are not nil
+    //If not try to login
+    //show alert if describing error if any
     @IBAction func signUpButtonPressed(_ sender: UIButton) {
         
-        if let userEmail = emailTextField.text {
-            
-            if let userPassword = passwordTextField.text {
+        if let userEmail = emailTextField.text, let userPassword = passwordTextField.text {
                 
                 Auth.auth().createUser(withEmail: userEmail, password: userPassword) { (authResult, error) in
                     
@@ -49,15 +51,5 @@ class SignUpViewController: UIViewController {
                     }
                 }
             }
-            else {
-                //Create alert user needs to enter a Password
-                print ("No password provided")
-            }
-        }
-        else {
-            //Create alert user need to enter a email
-            print ("No email Provided")
         }
     }
-        
-}

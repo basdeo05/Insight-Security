@@ -23,6 +23,8 @@ class LoginViewController: UIViewController{
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        //Set placeholder text color so they can be visible
         emailTextField.attributedPlaceholder =  NSAttributedString(string: "Email",
                                                                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         
@@ -30,16 +32,19 @@ class LoginViewController: UIViewController{
                                                                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     }
     
+    //When cancel press go back to home screen
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
         
     }
     
+    //make sure email and password fields are not nil
+    //If not try to login
+    //show alert if describing error if any
+    
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         
-        if let userEmail = emailTextField.text {
-            
-            if let userPassword = passwordTextField.text {
+        if let userEmail = emailTextField.text, let userPassword = passwordTextField.text {
                 
                 Auth.auth().signIn(withEmail: userEmail, password: userPassword) { (authResult, error) in
                     
@@ -55,17 +60,8 @@ class LoginViewController: UIViewController{
                     }
                 }
             }
-            else {
-                //Create alert user needs to enter a Password
-                print ("No password provided")
-            }
-        }
-        else {
-            //Create alert user need to enter a email
-            print ("No email Provided")
         }
     }
-}
 
 extension LoginViewController: loginAttempts {
     func showForgotPassword() {
