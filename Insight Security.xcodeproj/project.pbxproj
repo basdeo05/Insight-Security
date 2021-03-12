@@ -16,6 +16,7 @@
 		DD082ACC25F95C18006DAE3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD082ACB25F95C18006DAE3F /* Assets.xcassets */; };
 		DD082ACF25F95C18006DAE3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD082ACD25F95C18006DAE3F /* LaunchScreen.storyboard */; };
 		DD082ADC25F95E05006DAE3F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD082ADB25F95E05006DAE3F /* GoogleService-Info.plist */; };
+		DD67D6A125FBE81B000DC015 /* MyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67D6A025FBE81B000DC015 /* MyAlert.swift */; };
 		DDC430D025FAA84400FBFA52 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC430CF25FAA84400FBFA52 /* LoginViewController.swift */; };
 		DDC430D325FAA85400FBFA52 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC430D225FAA85400FBFA52 /* SignUpViewController.swift */; };
 		DDDD440825FACAF8004A9C3E /* ConstantsFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDD440725FACAF8004A9C3E /* ConstantsFile.swift */; };
@@ -35,6 +36,7 @@
 		DD082ACE25F95C18006DAE3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD082AD025F95C18006DAE3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD082ADB25F95E05006DAE3F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DD67D6A025FBE81B000DC015 /* MyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlert.swift; sourceTree = "<group>"; };
 		DDC430CF25FAA84400FBFA52 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DDC430D225FAA85400FBFA52 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		DDDD440725FACAF8004A9C3E /* ConstantsFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsFile.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				DDDD440725FACAF8004A9C3E /* ConstantsFile.swift */,
+				DD67D6A025FBE81B000DC015 /* MyAlert.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				DD082AC425F95C17006DAE3F /* HomeViewController.swift in Sources */,
 				DD082AC025F95C17006DAE3F /* AppDelegate.swift in Sources */,
 				DD082ACA25F95C17006DAE3F /* Insight_Security.xcdatamodeld in Sources */,
+				DD67D6A125FBE81B000DC015 /* MyAlert.swift in Sources */,
 				DDDD440825FACAF8004A9C3E /* ConstantsFile.swift in Sources */,
 				DDC430D025FAA84400FBFA52 /* LoginViewController.swift in Sources */,
 				DDDD442325FAD851004A9C3E /* UserHomePageViewController.swift in Sources */,

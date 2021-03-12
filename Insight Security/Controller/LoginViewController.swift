@@ -18,6 +18,7 @@ class LoginViewController: UIViewController{
     @IBOutlet weak var passwordTextField: UITextField!
     var delegate: loginAttempts?
     let k = K()
+    var myAlert = MyAlert()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,15 +51,32 @@ class LoginViewController: UIViewController{
                     
                     if let e = error {
                         //Alert that an error occured when signing in
-                        print (e.localizedDescription)
-                        self.delegate?.showForgotPassword()
+                        self.myAlert.showAlert(with: "Error Trying To Login In",
+                                               message: e.localizedDescription,
+                                               on: self,
+                                               wasSuccess: false, completionHandler: {
+                                                
+                                                self.delegate?.showForgotPassword()
+                                                
+                                               })
                     }
+                    
                     else {
                         //perform segue
-                        UserDefaults.standard.set(true, forKey: self.k.successSignIn)
-                        self.performSegue(withIdentifier: self.k.signInSegue, sender: self)
-                        
+                        self.myAlert.showAlert(with: "Signed In",
+                                               message: "Successfully Login",
+                                               on: self,
+                                               wasSuccess: true, completionHandler: {
+                                                
+                                                UserDefaults.standard.set(true, forKey: self.k.successSignIn)
+                                                DispatchQueue.main.async {
+                                                    
+                                                    self.performSegue(withIdentifier: self.k.signInSegue, sender: self)
+                                                    
+                                                }
+                                        })
                     }
+                    
                 }
             }
         }
