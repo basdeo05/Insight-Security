@@ -10,12 +10,17 @@ import Firebase
 
 class UserHomePageViewController: UIViewController {
 
+    @IBOutlet weak var emailLabel: UILabel!
+    
     let k = K()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if let userEmail = Auth.auth().currentUser?.email {
+            emailLabel.text = userEmail
+        }
     }
     
     @IBAction func signOutButtonPressed(_ sender: Any) {

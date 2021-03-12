@@ -13,6 +13,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     let k = K()
+    let alert = MyAlert()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +44,22 @@ class SignUpViewController: UIViewController {
                     if let e = error {
                         //Alert that an error occured when signing in
                         print (e.localizedDescription)
+                        self.alert.showAlert(with: "Sign Up Failed",
+                                             message: e.localizedDescription,
+                                             on: self, wasSuccess: false) {
+                            
+                        }
                     }
                     else {
-                        UserDefaults.standard.set(true, forKey: self.k.successSignIn)
-                        //perform segue
-                        self.performSegue(withIdentifier: self.k.signUpSegue, sender: self)
+                        self.alert.showAlert(with: "Sign Up Successful",
+                                             message: "You Have signed Up",
+                                             on: self, wasSuccess: true) {
+                            
+                            UserDefaults.standard.set(true, forKey: self.k.successSignIn)
+                            //perform segue
+                            self.performSegue(withIdentifier: self.k.signUpSegue, sender: self)
                         
+                        }
                     }
                 }
             }
