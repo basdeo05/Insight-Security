@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -216,14 +215,64 @@
                     <view key="view" contentMode="scaleToFill" id="qeu-dw-dvr">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="150" translatesAutoresizingMaskIntoConstraints="NO" id="NIg-XX-WCC">
+                                <rect key="frame" x="5" y="61" width="380" height="592.33333333333337"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Decibels:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="wVk-kT-WbF">
+                                        <rect key="frame" x="5" y="0.0" width="370" height="32.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                        <color key="textColor" red="0.18823529410000001" green="0.2784313725" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redCircle" translatesAutoresizingMaskIntoConstraints="NO" id="PMw-BZ-Grn">
+                                        <rect key="frame" x="90" y="182.33333333333337" width="200" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="E1b-Fl-JPn"/>
+                                            <constraint firstAttribute="height" constant="200" id="Pl2-b7-6gA"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vO4-4L-Cmi">
+                                        <rect key="frame" x="90" y="532.33333333333337" width="200" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="2al-sU-Srn"/>
+                                            <constraint firstAttribute="height" constant="60" id="px4-a4-cVj"/>
+                                        </constraints>
+                                        <state key="normal" title="Start Security Mode" backgroundImage="insightButton">
+                                            <color key="titleColor" red="0.18823529410000001" green="0.2784313725" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="startButtonPressed:" destination="cX6-LP-If8" eventType="touchUpInside" id="Ev7-DK-D4T"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="PMw-BZ-Grn" firstAttribute="centerX" secondItem="NIg-XX-WCC" secondAttribute="centerX" id="CIV-l6-fk9"/>
+                                    <constraint firstItem="PMw-BZ-Grn" firstAttribute="centerY" secondItem="NIg-XX-WCC" secondAttribute="centerY" id="WrR-fU-ioM"/>
+                                    <constraint firstAttribute="trailing" secondItem="wVk-kT-WbF" secondAttribute="trailing" constant="5" id="bXV-ey-Gtr"/>
+                                    <constraint firstItem="wVk-kT-WbF" firstAttribute="leading" secondItem="NIg-XX-WCC" secondAttribute="leading" constant="5" id="xLb-mb-3Pm"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Yqo-wS-RaU"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="NIg-XX-WCC" secondAttribute="trailing" constant="5" id="7Q0-r4-QLu"/>
+                            <constraint firstItem="NIg-XX-WCC" firstAttribute="leading" secondItem="Yqo-wS-RaU" secondAttribute="leading" constant="5" id="IGP-6M-kuX"/>
+                            <constraint firstItem="NIg-XX-WCC" firstAttribute="top" secondItem="Yqo-wS-RaU" secondAttribute="top" constant="5" id="Ut3-fC-MI6"/>
+                            <constraint firstItem="Yqo-wS-RaU" firstAttribute="bottom" secondItem="NIg-XX-WCC" secondAttribute="bottom" constant="5" id="eLZ-k8-VRO"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="odv-WK-OVT"/>
+                    <connections>
+                        <outlet property="circleImage" destination="PMw-BZ-Grn" id="RGL-QM-6N0"/>
+                        <outlet property="decibelsLabel" destination="wVk-kT-WbF" id="Q6r-Q5-LVF"/>
+                        <outlet property="securityButton" destination="vO4-4L-Cmi" id="EtP-H9-KGg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hmu-V9-ypM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4948" y="609"/>
+            <point key="canvasLocation" x="4947.6923076923076" y="608.53080568720372"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="x6l-Zq-w9j">
@@ -317,9 +366,7 @@
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="insightButton" width="520" height="96"/>
+        <image name="redCircle" width="228" height="230"/>
         <image name="textfield" width="298" height="93"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
