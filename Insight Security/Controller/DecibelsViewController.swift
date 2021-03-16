@@ -20,6 +20,9 @@ class DecibelsViewController: UIViewController {
     var alert = MyAlert()
     var shouldRecord = true
     var recorder: AVAudioRecorder?
+    var decibleContainer = [Float]()
+    var timerCounter = 0
+    var aTimer: Timer?
     
     
     override func viewDidLoad() {
@@ -39,18 +42,39 @@ class DecibelsViewController: UIViewController {
             //create recorder if one has not ben created
             if recorder == nil {
                 recorder = recorderCreator()
+                recorder?.isMeteringEnabled = true
                 recorder?.delegate = self
             }
             
             if shouldRecord {
-                recorder!.record(forDuration: 3)
-                shouldRecord = false
+                recorder!.record(forDuration: 30)
+                
+                let tempTimer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: #selector(getDecibels),
+                                     userInfo: nil, repeats: true)
+                aTimer = tempTimer
+                aTimer?.fire()
             }
         }
     }
     
     
-    
+    @objc func getDecibels(){
+        recorder?.updateMeters()
+        if let decibels = recorder?.peakPower(forChannel: 0){
+            decibleContainer.append(decibels)
+            
+            DispatchQueue.main.async {
+                self.decibelsLabel.text = "Calculating The Average Decibel: \(String(format: "%.2f", decibels))"
+            }
+        }
+        
+        timerCounter += 1
+        if (timerCounter == 30){
+            aTimer?.invalidate()
+        }
+    }
     
     //MARK:: Animations
     func animateBackGround (){
@@ -84,6 +108,28 @@ class DecibelsViewController: UIViewController {
                     if (self.continueAnimation){
                         self.circleAnimation()
                     }
+                }
+            }
+        }
+    }
+    
+    func endAnimation () {
+        UIView.animateKeyframes(withDuration: 3,
+                                delay: 0) {
+            self.circleImage.alpha = 0
+        } completion: { (_) in
+            
+            UIView.animate(withDuration: 2.5) {
+                self.circleImage.isHidden = true
+                self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.securityButton.alpha = 0.3
+                self.securityButton.setTitle("Exit Security Mode", for: .normal)
+                self.decibelsLabel.text = "Average decibels of the room: 50"
+                
+            } completion: { (_) in
+                UIView.animate(withDuration: 4) {
+                    self.decibelsLabel.alpha = 0
+                    self.navigationController?.navigationBar.isHidden = true
                 }
             }
         }
@@ -135,9 +181,9 @@ class DecibelsViewController: UIViewController {
         let settings = [
                 AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
                 AVSampleRateKey: 12000,
-                AVNumberOfChannelsKey: 1,
+                AVNumberOfChannelsKey: 1 as NSNumber,
                 AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-            ]
+        ] as [String : Any]
         
         do {
         let returnRecorder = try AVAudioRecorder(url: dataPath, settings: settings)
@@ -157,7 +203,9 @@ class DecibelsViewController: UIViewController {
 extension DecibelsViewController: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if (flag){
-            print ("Recording Done")
+            continueAnimation = false
+            endAnimation()
+            
         }
     }
 }
