@@ -43,6 +43,8 @@ class HomeViewController: UIViewController {
         if (UserDefaults.standard.bool(forKey: k.successSignIn)){
             performSegue(withIdentifier: k.homeToUserHome, sender: self)
         }
+        
+        
     }
     
     //animation function to rotate image

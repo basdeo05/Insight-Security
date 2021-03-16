@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import Firebase
 import IQKeyboardManagerSwift
+import AVFoundation
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        
+        //configure avaudiosession
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            
+            try audioSession.setCategory(.record, mode: .measurement, options: [])
+            
+        }
+        catch {
+            print("Failed to set audio session category.")
+        }
+        
         
         return true
     }
