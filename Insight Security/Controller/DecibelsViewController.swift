@@ -113,6 +113,20 @@ class DecibelsViewController: UIViewController {
         }
     }
     
+    func averageDecibelsOfRoom () ->String {
+        
+        var temp: Float = 0
+        for number in decibleContainer {
+            temp += number
+        }
+        
+        temp = temp / Float(decibleContainer.count)
+        
+        return String(format: "%.2f", temp)
+    }
+    
+    
+    
     func endAnimation () {
         UIView.animateKeyframes(withDuration: 3,
                                 delay: 0) {
@@ -124,7 +138,7 @@ class DecibelsViewController: UIViewController {
                 self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 self.securityButton.alpha = 0.3
                 self.securityButton.setTitle("Exit Security Mode", for: .normal)
-                self.decibelsLabel.text = "Average decibels of the room: 50"
+                self.decibelsLabel.text = "Average decibels of the room: \(self.averageDecibelsOfRoom())"
                 
             } completion: { (_) in
                 UIView.animate(withDuration: 4) {
@@ -205,7 +219,6 @@ extension DecibelsViewController: AVAudioRecorderDelegate {
         if (flag){
             continueAnimation = false
             endAnimation()
-            
         }
     }
 }
