@@ -35,6 +35,14 @@ class DecibelsViewController: UIViewController {
     var timerCounter = 0
     var aTimer: Timer?
     
+    //variable to hold the average decibels
+    var theAverageDecibleOfTheRoom: Float? {
+        didSet{
+            continousRecording()
+        }
+    }
+    
+    var shouldContinousRecord = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +58,6 @@ class DecibelsViewController: UIViewController {
         //If we have permissions continue eles do show an alert telling the user what to do
         if (checkPermissions()){
             
-            //start animations
-            animateBackGround()
             
             //create recorder if one has not ben created
             if recorder == nil {
@@ -62,7 +68,13 @@ class DecibelsViewController: UIViewController {
             
             //first time user press button should record for 30 seconds to get average decibels of the room
             if shouldRecord {
-                recorder!.record(forDuration: 30)
+                
+                shouldRecord = false
+                
+                //start animations
+                animateBackGround()
+                
+                recorder!.record(forDuration: 5)
                 
                 //timer to trigger get decibel function which will save the decible of the room for 30 seconds
                 let tempTimer = Timer.scheduledTimer(timeInterval: 1,
@@ -72,26 +84,86 @@ class DecibelsViewController: UIViewController {
                 aTimer = tempTimer
                 aTimer?.fire()
             }
+            
+            else {
+                
+                getBackToOriginal()
+            }
         }
     }
     
     
+    
+    func continousRecording () {
+        
+        shouldContinousRecord = true
+        if (recorder != nil){
+         
+            recorder?.record()
+            aTimer = Timer.scheduledTimer(timeInterval: 1,
+                                          target: self,
+                                          selector: #selector(getContinouseDecibels),
+                                          userInfo: nil, repeats: true)
+            aTimer?.fire()
+            
+            
+        }
+    }
+    
+    
+    
+    
+    //get the decibels for the room for 30 seconds
+    @objc func getContinouseDecibels(){
+        print ("Contunous Called")
+        
+        recorder?.updateMeters()
+        if let decibels = recorder?.peakPower(forChannel: 0){
+            
+            if let average = theAverageDecibleOfTheRoom {
+                
+                if (decibels < average - 20 || decibels > average + 20){
+                    aTimer?.invalidate()
+                    recorder?.stop()
+                    print("Noise Spike detected! \(decibels) : \(average)")
+                }
+                
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //get the decibels for the room for 30 seconds
     @objc func getDecibels(){
+        print ("Called")
         
         recorder?.updateMeters()
         if let decibels = recorder?.peakPower(forChannel: 0){
             decibleContainer.append(decibels)
             
             DispatchQueue.main.async {
-                self.decibelsLabel.text = "Calculating The Average Decibel: \(String(format: "%.2f", decibels))"
+                self.decibelsLabel.text = "Calculating The Average Decibel: \(String(format:"%.2f",decibels))"
             }
         }
         
         //counter to stop timer
         timerCounter += 1
-        if (timerCounter == 30){
+        if (timerCounter == 5){
             aTimer?.invalidate()
+            timerCounter = 0
         }
     }
     
@@ -105,6 +177,9 @@ class DecibelsViewController: UIViewController {
         }
         
         temp = temp / Float(decibleContainer.count)
+        
+        theAverageDecibleOfTheRoom = temp
+        print ("Average decibles of the room: \(theAverageDecibleOfTheRoom)")
         
         return String(format: "%.2f", temp)
     }
@@ -232,6 +307,32 @@ class DecibelsViewController: UIViewController {
             }
         }
     }
+    
+    
+    func getBackToOriginal(){
+        
+        UIView.animate(withDuration: 1,
+                       delay: 0) {
+            
+            self.view.backgroundColor = #colorLiteral(red: 0.9450049996, green: 0.9451631904, blue: 0.9449841976, alpha: 1)
+            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 1, green: 0.2923489213, blue: 0.3685441613, alpha: 1)
+            self.securityButton.setTitle("Start Security Mode", for: .normal)
+            self.securityButton.alpha = 1
+            self.decibelsLabel.alpha = 1
+            self.decibelsLabel.text = "Decibels:"
+            self.navigationController?.navigationBar.isHidden = false
+            self.shouldRecord = true
+            
+            
+        } completion: { (_) in
+            
+            //self.shouldRecord = true
+            DispatchQueue.main.async {
+                self.decibelsLabel.text = "Decibels:"
+            }
+            
+        }
+    }
 }
 
 
@@ -239,8 +340,16 @@ class DecibelsViewController: UIViewController {
 extension DecibelsViewController: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if (flag){
+            
+            if (shouldContinousRecord == false){
             continueAnimation = false
             endAnimation()
+            }
+            else {
+                print ("Continous Recording stopped! ")
+                print ("Is recording reording ? \(recorder.isRecording)")
+            }
+            
         }
     }
 }
