@@ -51,6 +51,8 @@ class DecibelsViewController: UIViewController {
         
     }
     
+    
+    
     //User clicked start security mode button
     @IBAction func startButtonPressed(_ sender: UIButton) {
         
@@ -346,8 +348,7 @@ extension DecibelsViewController: AVAudioRecorderDelegate {
             endAnimation()
             }
             else {
-                print ("Continous Recording stopped! ")
-                print ("Is recording reording ? \(recorder.isRecording)")
+                performSegue(withIdentifier: "decibelToCamera", sender: self)
             }
             
         }

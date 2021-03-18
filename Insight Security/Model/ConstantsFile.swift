@@ -13,4 +13,5 @@ struct K {
     let signInSegue = "loginToUserPage"
     let signUpSegue = "signUpToUserPage"
     let successSignIn = "successSignIn"
+    let decibelToCamera = "decibelToCamera"
 }
