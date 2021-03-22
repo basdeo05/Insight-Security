@@ -20,6 +20,7 @@ class CameraAppBrain {
     let captureSession = AVCaptureSession()
     let settings = AVCapturePhotoSettings()
     let photoOutput = AVCapturePhotoOutput()
+    let storage = Storage.storage()
     
     func checkCameraAuthorization () {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -82,6 +83,7 @@ class CameraAppBrain {
         
         //Part 2
         //creating output for photo
+        photoOutput.isHighResolutionCaptureEnabled = true
         guard captureSession.canAddOutput(photoOutput) else {return}
         
         captureSession.sessionPreset = .photo
@@ -113,36 +115,7 @@ class CameraAppBrain {
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    let storage = Storage.storage()
+
     
     func updloadImage (photo: AVCapturePhoto) {
         
@@ -157,17 +130,12 @@ class CameraAppBrain {
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         
-        var temp: UIImage?
-        // Try getting preview photo
-          if let previewPixelBuffer = photo.previewPixelBuffer {
-            var previewCiImage = CIImage(cvPixelBuffer: previewPixelBuffer)
-            // If we managed to get the oreintation, update the image
-            if let previewCgImage = CIContext().createCGImage(previewCiImage, from: previewCiImage.extent) {
-              temp = UIImage(cgImage: previewCgImage)
+        guard let photoData = photo.fileDataRepresentation() else {
+                return
             }
-          }
+            guard let photoImage = UIImage(data: photoData) else {return}
         
-        guard let temp2 = temp?.pngData() else {return}
+        guard let temp2 = photoImage.pngData() else {return}
 
         
         

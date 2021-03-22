@@ -142,8 +142,8 @@
 			children = (
 				DDDD440725FACAF8004A9C3E /* ConstantsFile.swift */,
 				DD67D6A025FBE81B000DC015 /* MyAlert.swift */,
-				DD0D40E72603F1EE00375F96 /* CameraAppBrain.swift */,
 				DD7C58D826041466005D95E2 /* DecibelAppBrain.swift */,
+				DD0D40E72603F1EE00375F96 /* CameraAppBrain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
