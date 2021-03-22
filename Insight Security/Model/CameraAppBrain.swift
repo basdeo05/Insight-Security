@@ -21,6 +21,8 @@ class CameraAppBrain {
     let settings = AVCapturePhotoSettings()
     let photoOutput = AVCapturePhotoOutput()
     let storage = Storage.storage()
+    let db = Firestore.firestore()
+    
     
     func checkCameraAuthorization () {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -123,7 +125,7 @@ class CameraAppBrain {
         
         let imagesRef = storageReference.child("securityTriggers")
         
-        let fileName = "\(NSTimeIntervalSince1970).jpg"
+        let fileName = "\(String(Timestamp.init().seconds)).jpg"
         
         let spaceRef = imagesRef.child(fileName)
         
@@ -138,12 +140,85 @@ class CameraAppBrain {
         guard let temp2 = photoImage.pngData() else {return}
 
         
+        // Upload the file to the path "images/rivers.jpg"
+        let uploadTask = spaceRef.putData(temp2, metadata: nil) { (metadata, error) in
+          guard let metadata = metadata else {
+            print ("Error uploading file")
+            return
+          }
+          
+            
+          spaceRef.downloadURL { (url, error) in
+            guard let downloadURL = url else {return}
+            
+            
+            
+            if let email = Auth.auth().currentUser?.email{
+                
+                let doesDocumentExists = self.db.collection("securityEvents").document(email)
+                
+                doesDocumentExists.getDocument { (returnDocument, error) in
+                    
+                    if let document = returnDocument {
+                        
+                        if document.exists {
+                            self.updateDatabase(newPictureURL: downloadURL, userEmail: email)
+                        }
+                        else {
+                            self.createNewDataBasePost(newPictureURL: downloadURL, userEmail: email)
+                        }
+                    }
+                }
+            }
+            
+          }
+            
+        }
+    }
+    
+    func updateDatabase(newPictureURL: URL, userEmail: String){
         
-        // Upload data and metadata
-        imagesRef.putData(temp2, metadata: nil)
-
-        // Upload file and metadata
-        //imagesRef.putFile(from: temp2, metadata: metadata)
+        let documentReference = db.collection("securityEvents").document(userEmail)
         
+        var temp = [String]()
+        
+        
+        documentReference.getDocument { (snapshot, error) in
+            
+            if let e = error {
+                print (e)
+            }
+            else {
+                
+                if let snap = snapshot {
+                    temp = snap["noiseSpike"] as! [String]
+                    temp.append(newPictureURL.absoluteString)
+                    
+                    
+                    documentReference.updateData(["noiseSpike" : temp]) { (error) in
+                        
+                        if let e = error {
+                            print (e)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func createNewDataBasePost (newPictureURL: URL, userEmail: String ){
+        
+        let temp = [newPictureURL.absoluteString]
+        
+        db.collection("securityEvents").document(userEmail).setData(["noiseSpike" : temp]) { (error) in
+            
+            if let e = error {
+                print ("There was an error creating database entry for first time entry")
+            }
+            else{
+                print ("Able to create new entry")
+            }
+        }
     }
 }
