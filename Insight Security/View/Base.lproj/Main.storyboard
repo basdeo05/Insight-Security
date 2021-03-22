@@ -172,7 +172,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aay-te-0Q2">
-                                <rect key="frame" x="70" y="371" width="250" height="75"/>
+                                <rect key="frame" x="62" y="407" width="250" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Enter Camera Mode" backgroundImage="insightButton">
@@ -189,6 +189,17 @@
                                 <color key="textColor" red="0.18823529410000001" green="0.2784313725" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mqp-x0-6Oi">
+                                <rect key="frame" x="62" y="254" width="250" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="See Security Triggers" backgroundImage="insightButton">
+                                    <color key="titleColor" red="0.18823529410000001" green="0.2784313725" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="AQE-Gu-Z9k" kind="show" id="uSq-Xh-ITj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aDk-pw-a8A"/>
                         <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -208,6 +219,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VpJ-FX-kIq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3707.6923076923076" y="52.606635071090047"/>
+        </scene>
+        <!--View Triggers View Controller-->
+        <scene sceneID="URn-Cn-sPU">
+            <objects>
+                <viewController id="AQE-Gu-Z9k" customClass="ViewTriggersViewController" customModule="Insight_Security" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zKc-SW-oEK">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CJu-fr-qGr">
+                                <rect key="frame" x="0.0" y="56" width="390" height="734"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Vai-yj-zg0"/>
+                        <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="CJu-fr-qGr" firstAttribute="leading" secondItem="Vai-yj-zg0" secondAttribute="leading" id="AZO-Ng-nGM"/>
+                            <constraint firstItem="CJu-fr-qGr" firstAttribute="top" secondItem="Vai-yj-zg0" secondAttribute="top" id="DwI-4J-Zxr"/>
+                            <constraint firstItem="CJu-fr-qGr" firstAttribute="trailing" secondItem="Vai-yj-zg0" secondAttribute="trailing" id="eaG-mg-gdS"/>
+                            <constraint firstAttribute="bottom" secondItem="CJu-fr-qGr" secondAttribute="bottom" id="vTD-I8-Rs9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ao4-Wm-h24"/>
+                    <connections>
+                        <outlet property="tableView" destination="CJu-fr-qGr" id="xfh-Gw-exk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vr8-0z-pzc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4964.6153846153848" y="-333.41232227488149"/>
         </scene>
         <!--Decibels View Controller-->
         <scene sceneID="7Fl-Mx-lnp">
