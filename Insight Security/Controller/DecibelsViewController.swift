@@ -15,39 +15,14 @@ class DecibelsViewController: UIViewController {
     @IBOutlet weak var circleImage: UIImageView!
     @IBOutlet weak var decibelsLabel: UILabel!
     
-    //Stop the circle animation
-    var continueAnimation = true
+    var decibelBrain = DecibelAppBrain()
     
-    //crete an alert if i need user to allow access to the microphone
-    var alert = MyAlert()
-    
-    //when tapping the record button for the first time I should start recording
-    var shouldRecord = true
-    
-    //recorder to be set when user clicks start security mode
-    var recorder: AVAudioRecorder?
-    
-    //holds the decibels of the room
-    //will have 30 items for 30 seconds
-    var decibleContainer = [Float]()
-    
-    //Know when to stop the timer
-    var timerCounter = 0
-    var aTimer: Timer?
-    
-    //variable to hold the average decibels
-    var theAverageDecibleOfTheRoom: Float? {
-        didSet{
-            continousRecording()
-        }
-    }
-    
-    var shouldContinousRecord = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9450049996, green: 0.9451631904, blue: 0.9449841976, alpha: 1)
         circleImage.isHidden = true
+        decibelBrain.delegate = self
         
     }
     
@@ -56,201 +31,41 @@ class DecibelsViewController: UIViewController {
     //User clicked start security mode button
     @IBAction func startButtonPressed(_ sender: UIButton) {
         
-        //Check to see if we have permissions first
-        //If we have permissions continue eles do show an alert telling the user what to do
-        if (checkPermissions()){
+        if (decibelBrain.checkPermissions()){
             
-            
-            //create recorder if one has not ben created
-            if recorder == nil {
-                recorder = recorderCreator()
-                recorder?.isMeteringEnabled = true
-                recorder?.delegate = self
+            if (decibelBrain.recorder == nil){
+                decibelBrain.recorder = decibelBrain.recorderCreator()
+                decibelBrain.recorder?.isMeteringEnabled = true
+                decibelBrain.recorder?.delegate = self
             }
             
-            //first time user press button should record for 30 seconds to get average decibels of the room
-            if shouldRecord {
+            
+            
+            if (decibelBrain.shouldRecord){
+                decibelBrain.shouldRecord = false
+                decibelBrain.delegate?.animateBackground()
                 
-                shouldRecord = false
+                decibelBrain.recorder!.record(forDuration: 5)
                 
-                //start animations
-                animateBackGround()
-                
-                recorder!.record(forDuration: 5)
-                
-                //timer to trigger get decibel function which will save the decible of the room for 30 seconds
                 let tempTimer = Timer.scheduledTimer(timeInterval: 1,
-                                     target: self,
-                                     selector: #selector(getDecibels),
-                                     userInfo: nil, repeats: true)
-                aTimer = tempTimer
-                aTimer?.fire()
+                                                     target: decibelBrain.self,
+                                                     selector: #selector(decibelBrain.getDecibels),
+                                                     userInfo: nil,
+                                                     repeats: true)
+                decibelBrain.aTimer = tempTimer
+                decibelBrain.aTimer?.fire()
             }
             
             else {
-                
-                getBackToOriginal()
+                decibelBrain.delegate?.getBackToOriginal()
             }
         }
     }
+}
+
+extension DecibelsViewController: decibelProtocol {
     
-    
-    
-    func continousRecording () {
-        
-        shouldContinousRecord = true
-        if (recorder != nil){
-         
-            recorder?.record()
-            aTimer = Timer.scheduledTimer(timeInterval: 1,
-                                          target: self,
-                                          selector: #selector(getContinouseDecibels),
-                                          userInfo: nil, repeats: true)
-            aTimer?.fire()
-            
-            
-        }
-    }
-    
-    
-    
-    
-    //get the decibels for the room for 30 seconds
-    @objc func getContinouseDecibels(){
-        print ("Contunous Called")
-        
-        recorder?.updateMeters()
-        if let decibels = recorder?.peakPower(forChannel: 0){
-            
-            if let average = theAverageDecibleOfTheRoom {
-                
-                if (decibels < average - 20 || decibels > average + 20){
-                    aTimer?.invalidate()
-                    recorder?.stop()
-                    print("Noise Spike detected! \(decibels) : \(average)")
-                }
-                
-            }
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //get the decibels for the room for 30 seconds
-    @objc func getDecibels(){
-        print ("Called")
-        
-        recorder?.updateMeters()
-        if let decibels = recorder?.peakPower(forChannel: 0){
-            decibleContainer.append(decibels)
-            
-            DispatchQueue.main.async {
-                self.decibelsLabel.text = "Calculating The Average Decibel: \(String(format:"%.2f",decibels))"
-            }
-        }
-        
-        //counter to stop timer
-        timerCounter += 1
-        if (timerCounter == 5){
-            aTimer?.invalidate()
-            timerCounter = 0
-        }
-    }
-    
-    
-    //Return the average decibels of the room
-    func averageDecibelsOfRoom () ->String {
-        
-        var temp: Float = 0
-        for number in decibleContainer {
-            temp += number
-        }
-        
-        temp = temp / Float(decibleContainer.count)
-        
-        theAverageDecibleOfTheRoom = temp
-        print ("Average decibles of the room: \(theAverageDecibleOfTheRoom)")
-        
-        return String(format: "%.2f", temp)
-    }
-    
-    
-    //MARK:: Recorder Functions
-    //Check to see if we have permission to record
-    //If we dont create an alert
-    func checkPermissions() -> Bool {
-        
-        var permissionGranted = false
-        
-        //setting session just active before I need to use it
-        let theAudioSession = AVAudioSession.sharedInstance()
-        
-        do {
-            //setting the session to active
-            try theAudioSession.setActive(true)
-            
-            //Check Permissions
-            //Iif not allowed return fasle and create an alert
-            theAudioSession.requestRecordPermission { (userResponse) in
-                if (userResponse == false){
-                    
-                    self.alert.showAlert(with: "Need Permission",
-                                    message: "Go to settings and allow microphone user",
-                                    on: self,
-                                    wasSuccess: false) {
-                        permissionGranted = false
-                    }
-                }
-                else {
-                    permissionGranted = true
-                }
-            }
-        }
-        catch{
-            permissionGranted = false
-        }
-        
-        return permissionGranted
-    }
-    
-    //create a recorder to set public recorder
-    func recorderCreator () -> AVAudioRecorder? {
-        
-        guard let dataPath = FileManager.default.urls(for: .documentDirectory,
-                                                      in: .userDomainMask).first?.appendingPathComponent("recording.m4a") else {return nil}
-        
-        let settings = [
-                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                AVSampleRateKey: 12000,
-                AVNumberOfChannelsKey: 1 as NSNumber,
-                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-        ] as [String : Any]
-        
-        do {
-        let returnRecorder = try AVAudioRecorder(url: dataPath, settings: settings)
-            return returnRecorder
-        }
-        catch{
-            return nil
-        }
-    }
-    
-    
-    
-    //MARK:: Animations
-    func animateBackGround (){
+    func animateBackground() {
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 2) {
@@ -262,11 +77,11 @@ class DecibelsViewController: UIViewController {
             self.decibelsLabel.text = "Calculating the average decibels of the room ....."
         }
         
-        circleAnimation()
+        decibelBrain.delegate?.animateCircle()
         
     }
     
-    func circleAnimation (){
+    func animateCircle(){
         
         UIView.animate(withDuration: 3) {
             self.circleImage.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
@@ -278,17 +93,16 @@ class DecibelsViewController: UIViewController {
                 UIView.animate(withDuration: 3) {
                     self.circleImage.transform = CGAffineTransform(scaleX: 1, y: 1)
                 } completion: { (_) in
-                    if (self.continueAnimation){
-                        self.circleAnimation()
+                    if (self.decibelBrain.continueAnimation){
+                        self.decibelBrain.delegate?.animateCircle()
                     }
                 }
             }
         }
     }
     
-    
-    
-    func endAnimation () {
+    func endAnimation(){
+        
         UIView.animateKeyframes(withDuration: 3,
                                 delay: 0) {
             self.circleImage.alpha = 0
@@ -299,7 +113,7 @@ class DecibelsViewController: UIViewController {
                 self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 self.securityButton.alpha = 0.3
                 self.securityButton.setTitle("Exit Security Mode", for: .normal)
-                self.decibelsLabel.text = "Average decibels of the room: \(self.averageDecibelsOfRoom())"
+                self.decibelsLabel.text = "Average decibels of the room: \(self.decibelBrain.averageDecibelsOfRoom())"
                 
             } completion: { (_) in
                 UIView.animate(withDuration: 4) {
@@ -308,9 +122,10 @@ class DecibelsViewController: UIViewController {
                 }
             }
         }
+
+        
     }
-    
-    
+
     func getBackToOriginal(){
         
         UIView.animate(withDuration: 1,
@@ -323,7 +138,7 @@ class DecibelsViewController: UIViewController {
             self.decibelsLabel.alpha = 1
             self.decibelsLabel.text = "Decibels:"
             self.navigationController?.navigationBar.isHidden = false
-            self.shouldRecord = true
+            self.decibelBrain.shouldRecord = true
             
             
         } completion: { (_) in
@@ -334,6 +149,27 @@ class DecibelsViewController: UIViewController {
             }
             
         }
+        
+    }
+    
+    func updateLabel(){
+        
+        
+        DispatchQueue.main.async {
+            self.decibelsLabel.text = "Calculating The Average Decibel: \(self.decibelBrain.decibleContainer.last!)"
+        }
+        
+    }
+    
+    func showAlert(){
+        
+        DispatchQueue.main.async {
+            
+            self.decibelBrain.alert.showAlert(with: "Need Permission",
+                                 message: "Go to settings and allow microphone user",
+                                 on: self,
+                                 wasSuccess: false) {}
+        }
     }
 }
 
@@ -343,14 +179,13 @@ extension DecibelsViewController: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if (flag){
             
-            if (shouldContinousRecord == false){
-            continueAnimation = false
+            if (decibelBrain.shouldContinousRecord == false){
+                decibelBrain.continueAnimation = false
             endAnimation()
             }
             else {
                 performSegue(withIdentifier: "decibelToCamera", sender: self)
             }
-            
         }
     }
 }

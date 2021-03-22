@@ -81,18 +81,10 @@ class CameraViewController: UIViewController {
         
         
         
-        
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             photoOutput.capturePhoto(with: settings, delegate: self)
         }
-        
-        
-        
     }
-    
-    
-    
     
     //MARK:: Get Permissons
     func checkCameraAuthorization () {
@@ -135,9 +127,6 @@ class CameraViewController: UIViewController {
             }
         }
     }
-    
-
-
 }
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
@@ -169,11 +158,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                         let creationRequest = PHAssetCreationRequest.forAsset()
                         creationRequest.addResource(with: .photo, data: photo.fileDataRepresentation()!, options: nil)
                 })
-                
-                
-                
-                
-                
             }
             
             self.appBrain.updloadImage(photo: photo)
