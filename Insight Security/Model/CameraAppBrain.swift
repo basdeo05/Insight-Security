@@ -14,6 +14,12 @@ protocol cameraProtcol {
     func takePicture()
 }
 
+struct notificationTriggerUpdate {
+    var theURL: [String]
+    var theDate: [String]
+    var timeSince: [Double]
+}
+
 class CameraAppBrain {
     
     var delegate: cameraProtcol?
@@ -138,6 +144,8 @@ class CameraAppBrain {
             guard let photoImage = UIImage(data: photoData) else {return}
         
         guard let temp2 = photoImage.pngData() else {return}
+        
+        
 
         
         // Upload the file to the path "images/rivers.jpg"
@@ -180,7 +188,6 @@ class CameraAppBrain {
         
         let documentReference = db.collection("securityEvents").document(userEmail)
         
-        var temp = [String]()
         
         
         documentReference.getDocument { (snapshot, error) in
@@ -191,11 +198,21 @@ class CameraAppBrain {
             else {
                 
                 if let snap = snapshot {
-                    temp = snap["noiseSpike"] as! [String]
-                    temp.append(newPictureURL.absoluteString)
+                    var urlHolder = snap["urls"] as! [String]
+                    urlHolder.append(newPictureURL.absoluteString)
+                    
+                    var dateStringHolder = snap["dates"] as! [String]
+                    dateStringHolder.append(self.getCurrentDateAndTime())
+                    
+                    var creationHolder = snap["creation"] as! [Double]
+                    creationHolder.append(Date().timeIntervalSince1970)
+                    
+                    let newObject = notificationTriggerUpdate(theURL: urlHolder, theDate: dateStringHolder, timeSince: creationHolder)
                     
                     
-                    documentReference.updateData(["noiseSpike" : temp]) { (error) in
+                    documentReference.updateData(["urls" : newObject.theURL,
+                                                  "dates": newObject.theDate,
+                                                  "creation": newObject.timeSince]) { (error) in
                         
                         if let e = error {
                             print (e)
@@ -210,15 +227,36 @@ class CameraAppBrain {
     func createNewDataBasePost (newPictureURL: URL, userEmail: String ){
         
         let temp = [newPictureURL.absoluteString]
+        var newObject = notificationTriggerUpdate(theURL: [], theDate: [], timeSince: [])
         
-        db.collection("securityEvents").document(userEmail).setData(["noiseSpike" : temp]) { (error) in
+        newObject.theURL.append(contentsOf: temp)
+        newObject.theDate.append(getCurrentDateAndTime())
+        newObject.timeSince.append(Date().timeIntervalSince1970)
+        
+        db.collection("securityEvents").document(userEmail).setData(["urls" : newObject.theURL,
+                                                                     "dates": newObject.theDate,
+                                                                     "creation": newObject.timeSince]) { (error) in
             
             if let e = error {
-                print ("There was an error creating database entry for first time entry")
+                print ("There was an error creating database entry for first time entry: \(e.localizedDescription)")
             }
             else{
                 print ("Able to create new entry")
             }
         }
+    }
+    
+    func getCurrentDateAndTime () -> String {
+        
+        let currentDateTime = Date()
+        
+        let formatter = DateFormatter()
+        
+        formatter.timeStyle = .medium
+        formatter.dateStyle = .long
+        
+        let dateTimeString = formatter.string(from: currentDateTime)
+        
+        return dateTimeString
     }
 }
