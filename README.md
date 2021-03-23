@@ -9,6 +9,11 @@ iOS application to turn your iphone into a security device.
 
 ![giphy](https://user-images.githubusercontent.com/19720373/112186997-0b142b00-8bd8-11eb-868d-6fd65d8ea6cf.gif)
 
+# Noise Spike Being Triggered and phone taking picutre without needing user interaction
+
+![giphy](https://user-images.githubusercontent.com/19720373/112187566-95f52580-8bd8-11eb-981d-b2463e061805.gif)
+
+
 
 
 
