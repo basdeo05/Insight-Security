@@ -13,6 +13,11 @@ iOS application to turn your iphone into a security device.
 
 ![giphy](https://user-images.githubusercontent.com/19720373/112187566-95f52580-8bd8-11eb-981d-b2463e061805.gif)
 
+# Viewing Security Images
+
+![giphy](https://user-images.githubusercontent.com/19720373/112209624-0b202500-8bf0-11eb-9493-b36b17d39e52.gif)
+
+
 
 
 
