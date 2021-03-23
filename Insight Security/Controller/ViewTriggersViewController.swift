@@ -11,7 +11,6 @@ import Firebase
 class ViewTriggersViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var imageURLS = [String]()
     let db = Firestore.firestore()
     var viewImages = ViewImages()
     
@@ -44,9 +43,13 @@ class ViewTriggersViewController: UIViewController {
                 
                 if document.exists {
                     
-                    self.imageURLS = document["noiseSpike"] as! [String]
-                    self.viewImages.populateObjects(theURLS: self.imageURLS)
-                }
+                    let urlHolder = document["urls"] as! [String]
+                    let dateStringHolder = document["dates"] as! [String]
+                    let creationHolder = document["creation"] as! [Double]
+                    
+                    let newObject = notificationTriggerUpdate(theURL: urlHolder, theDate: dateStringHolder, timeSince: creationHolder)
+                    
+                    self.viewImages.populateObjects(object: newObject)                }
             }
         }
     }

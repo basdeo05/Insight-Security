@@ -28,11 +28,12 @@ class ViewImages {
     
     
     
-    func populateObjects (theURLS: [String]){
+    func populateObjects (object: notificationTriggerUpdate){
         
-        print(theURLS.count)
+        print(object.theURL.count)
+        var counter = 0
         
-        for url in theURLS {
+        for url in object.theURL {
             
             let session = URLSession(configuration: .default)
             
@@ -52,9 +53,10 @@ class ViewImages {
                             if let image = UIImage(data: imageData){
                                 
                                 let newObject = noiseSpikeObject(theImage: image,
-                                                                 theDate: "1/27/1996")
+                                                                 theDate: object.theDate[counter])
                                 
                                 self.noiseSpikeObjects.append(newObject)
+                                counter += 1
                                 
                                 self.delegate?.updateUI()
                                 
