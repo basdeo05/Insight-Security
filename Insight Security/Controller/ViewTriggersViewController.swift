@@ -13,6 +13,7 @@ class ViewTriggersViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var imageURLS = [String]()
     let db = Firestore.firestore()
+    var viewImages = ViewImages()
     
 
     override func viewDidLoad() {
@@ -21,10 +22,13 @@ class ViewTriggersViewController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        viewImages.delegate = self
         
         tableView.register(UINib(nibName: "TriggerCellTableViewCell", bundle: nil), forCellReuseIdentifier: "TriggerCell")
         
         getImagesURLS()
+        
+        
     }
     
     func getImagesURLS() {
@@ -41,7 +45,7 @@ class ViewTriggersViewController: UIViewController {
                 if document.exists {
                     
                     self.imageURLS = document["noiseSpike"] as! [String]
-                    self.tableView.reloadData()
+                    self.viewImages.populateObjects(theURLS: self.imageURLS)
                 }
             }
         }
@@ -50,39 +54,21 @@ class ViewTriggersViewController: UIViewController {
 
 extension ViewTriggersViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return imageURLS.count
+        return viewImages.noiseSpikeObjects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TriggerCell") as! TriggerCellTableViewCell
-        
-        
-        let session = URLSession(configuration: .default)
-        
-        let url = URL(string: imageURLS[indexPath.row])
-        
-        if let theURL = url {
-            
-            let task = session.dataTask(with: theURL) { (data, response, error) in
-                
-                if let e = error {
-                    print ("There was an error getting image")
-                }
-                else {
-                    
-                    if let imageData = data {
-                        DispatchQueue.main.async {
-                            cell.securityImage.image = UIImage(data: imageData)
-                            tableView.reloadData()
-                        }
-                    }
-                }
-            }
-            task.resume()
-        }
-    
-        
-        cell.dateLabel.text = imageURLS[indexPath.row]
+        cell.securityImage.image = viewImages.noiseSpikeObjects[indexPath.row].theImage
+        cell.dateLabel.text = viewImages.noiseSpikeObjects[indexPath.row].theDate
         return cell
+    }
+}
+
+extension ViewTriggersViewController: imagesProtocol {
+    func updateUI() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }

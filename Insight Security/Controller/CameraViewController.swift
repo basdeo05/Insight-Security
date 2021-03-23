@@ -91,5 +91,4 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             self.appBrain.updloadImage(photo: photo)
         }
     }
-    
 }
