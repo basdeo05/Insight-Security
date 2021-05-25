@@ -124,7 +124,7 @@ class DecibelAppBrain {
         temp = temp / Float(decibleContainer.count)
         
         theAverageDecibleOfTheRoom = temp
-        print ("Average decibles of the room: \(theAverageDecibleOfTheRoom)")
+        print ("Average decibles of the room: \(String(describing: theAverageDecibleOfTheRoom))")
         
         return String(format: "%.2f", temp)
     }

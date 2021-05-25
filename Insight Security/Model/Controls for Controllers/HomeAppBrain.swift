@@ -34,8 +34,4 @@ extension HomeAppBrain: FirebaseProtocols {
     func error(aError: Error) {
         print(aError.localizedDescription)
     }
-    
-    
-    
-    
 }

@@ -14,6 +14,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var forgotPasswordOutlet: UIButton!
     
+    @IBOutlet weak var loginOutlet: UIButton!
+    @IBOutlet weak var signUpOutlet: UIButton!
+    
     //control for animation
     var turnTransformation:CGFloat = 4
     
@@ -37,6 +40,10 @@ class HomeViewController: UIViewController {
         
         //show forgot password button after three login attempts
         delegate = self
+        Styling.customButton(for: loginOutlet)
+        Styling.customButton(for: signUpOutlet)
+        Styling.customButton(for: forgotPasswordOutlet)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

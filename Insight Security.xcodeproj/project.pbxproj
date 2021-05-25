@@ -16,6 +16,7 @@
 		DD082ACC25F95C18006DAE3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD082ACB25F95C18006DAE3F /* Assets.xcassets */; };
 		DD082ACF25F95C18006DAE3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD082ACD25F95C18006DAE3F /* LaunchScreen.storyboard */; };
 		DD082ADC25F95E05006DAE3F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD082ADB25F95E05006DAE3F /* GoogleService-Info.plist */; };
+		DD096C2F265D87DA009254C4 /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD096C2E265D87DA009254C4 /* Styling.swift */; };
 		DD0D40E52603F04100375F96 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0D40E42603F04100375F96 /* CameraViewController.swift */; };
 		DD0D40E82603F1EE00375F96 /* CameraAppBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0D40E72603F1EE00375F96 /* CameraAppBrain.swift */; };
 		DD5E30C625FC0D0900409A3F /* DecibelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5E30C525FC0D0900409A3F /* DecibelsViewController.swift */; };
@@ -44,6 +45,7 @@
 		DD082ACE25F95C18006DAE3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD082AD025F95C18006DAE3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD082ADB25F95E05006DAE3F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DD096C2E265D87DA009254C4 /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
 		DD0D40E42603F04100375F96 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		DD0D40E72603F1EE00375F96 /* CameraAppBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraAppBrain.swift; sourceTree = "<group>"; };
 		DD5E30C525FC0D0900409A3F /* DecibelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecibelsViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				DD082AC525F95C17006DAE3F /* Main.storyboard */,
 				DD67D6A025FBE81B000DC015 /* MyAlert.swift */,
 				DD4E10B026093AF000EDFF91 /* Cells */,
+				DD096C2E265D87DA009254C4 /* Styling.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD096C2F265D87DA009254C4 /* Styling.swift in Sources */,
 				DD0D40E52603F04100375F96 /* CameraViewController.swift in Sources */,
 				DD7C58D926041466005D95E2 /* DecibelAppBrain.swift in Sources */,
 				DDC7CF76265D4FEA0009F222 /* FirebaseHelper.swift in Sources */,
