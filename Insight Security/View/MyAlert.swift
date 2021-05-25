@@ -77,9 +77,9 @@ class MyAlert: UIViewController {
         
         //give the alert view a size and add label
         //Want Y to be negative to be off screen then will animate it in
-        alertView.frame = CGRect(x: 40,
+        alertView.frame = CGRect(x: targetView.frame.width / 4,
                                  y: -300,
-                                 width: targetView.frame.size.width-80,
+                                 width: targetView.frame.size.width / 2,
                                  height: 100)
         
         
@@ -138,9 +138,9 @@ class MyAlert: UIViewController {
                         }
                         
                         UIView.animate(withDuration: 1, delay: delayTime) {
-                            self.alertView.frame = CGRect(x: 40,
+                            self.alertView.frame = CGRect(x: targetView.frame.width / 4,
                                                            y: targetView.frame.size.height,
-                                                     width: targetView.frame.size.width-80,
+                                                     width: targetView.frame.size.width / 2,
                                                      height: 100)
                             self.backgroundView.alpha = 0
                         } completion: { (done) in
