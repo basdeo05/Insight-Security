@@ -14,6 +14,7 @@ protocol cameraProtcol {
     func setupCameraPreview()
     func takePicture()
     func pictureUploadedToDatabase()
+    func error(message: String)
 }
 
 
@@ -135,11 +136,12 @@ extension CameraAppBrain: FirebaseProtocols {
     
     func pictureUploaded() {
         print("Image Uploaded")
+        delegate?.pictureUploadedToDatabase()
     }
     
     func error(aError: Error) {
         print(aError.localizedDescription)
+        delegate?.error(message: "Something went wrong")
     }
-    
     
 }

@@ -27,6 +27,11 @@ class CameraViewController: UIViewController{
 }
 
 extension CameraViewController: cameraProtcol {
+    func error(message: String) {
+        print(message)
+        dismiss(animated: true, completion: nil)
+    }
+    
     func pictureUploadedToDatabase() {
         dismiss(animated: true, completion: nil)
     }

@@ -54,6 +54,9 @@ class FirebaseHelper {
         let uploadTask = spaceRef.putData(temp2, metadata: nil) { (metadata, error) in
           guard let metadata = metadata else {
             print ("Error uploading file")
+            if let e = error {
+                self.delegate?.error(aError: e)
+            }
             return
           }
             
