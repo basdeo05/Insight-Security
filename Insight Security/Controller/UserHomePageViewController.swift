@@ -21,6 +21,9 @@ class UserHomePageViewController: UIViewController {
     //connect this controller to the model
     var control = HomeAppBrain()
     
+    var counter = 0
+    var viewDidLoadCalled = true
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +53,10 @@ class UserHomePageViewController: UIViewController {
         UIView.animate(withDuration: 2) {
             self.emailLabel.isHidden = false
         }
+        
+        if (viewDidLoadCalled == false){
+            control.updateCollectionView()
+        }
     }
     
     //Signout user when sign out button is pressed
@@ -72,11 +79,16 @@ class UserHomePageViewController: UIViewController {
 //Call reloadData in matin thread
 extension UserHomePageViewController: HomeProtocol {
     func updateUI(returnedData: [SecurityImageObject]) {
+        counter = returnedData.count
+        viewDidLoadCalled = false
+
         
-        control.securityObjects = returnedData
-        
-        DispatchQueue.main.async {
-            self.securityImageCollectionView.reloadData()
+        if (counter != control.securityObjects.count){
+            control.securityObjects.removeAll()
+            control.securityObjects = returnedData
+            DispatchQueue.main.async {
+                self.securityImageCollectionView.reloadData()
+            }
         }
     }
 }

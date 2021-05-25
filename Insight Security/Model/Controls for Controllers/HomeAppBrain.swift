@@ -39,6 +39,7 @@ extension HomeAppBrain: FirebaseProtocols {
     
     mutating func securityObjectsReturned(returnedData: [SecurityImageObject]) {
         
+        securityObjects.removeAll()
         securityObjects.append(contentsOf: returnedData)
         
         //provide viewController with the data it needs

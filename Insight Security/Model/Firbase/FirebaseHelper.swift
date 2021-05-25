@@ -8,6 +8,7 @@
 import UIKit
 import Photos
 import Firebase
+import FirebaseFirestore
 protocol FirebaseProtocols {
     func pictureUploaded()
     func error (aError: Error)
