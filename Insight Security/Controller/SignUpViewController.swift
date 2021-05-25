@@ -12,6 +12,9 @@ class SignUpViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var cancelButtonOutlet: UIButton!
+    @IBOutlet weak var signUpButtonOutlet: UIButton!
+    
     let k = K()
     let alert = MyAlert()
     
@@ -23,8 +26,11 @@ class SignUpViewController: UIViewController {
         
         passwordTextField.attributedPlaceholder =  NSAttributedString(string: "Password",
                                                                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        Styling.customButton(for: cancelButtonOutlet)
+        Styling.customButton(for: signUpButtonOutlet)
+        Styling.customTextField(for: emailTextField)
+        Styling.customTextField(for: passwordTextField)
         
-    
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
