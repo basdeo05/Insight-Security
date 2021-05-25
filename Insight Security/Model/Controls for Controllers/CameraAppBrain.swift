@@ -13,13 +13,9 @@ import FirebaseFirestore
 protocol cameraProtcol {
     func setupCameraPreview()
     func takePicture()
+    func pictureUploadedToDatabase()
 }
 
-struct notificationTriggerUpdate {
-    var theURL: [String]
-    var theDate: [String]
-    var timeSince: [Double]
-}
 
 class CameraAppBrain {
     
