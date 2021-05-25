@@ -132,6 +132,10 @@ class CameraAppBrain {
 
 
 extension CameraAppBrain: FirebaseProtocols {
+    func securityObjectsReturned(returnedData: [SecurityImageObject]) {
+        
+    }
+    
     func pictureUploaded() {
         print("Image Uploaded")
     }

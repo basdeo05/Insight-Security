@@ -11,6 +11,7 @@ import Firebase
 protocol FirebaseProtocols {
     func pictureUploaded()
     func error (aError: Error)
+    mutating func securityObjectsReturned(returnedData: [SecurityImageObject])
 }
 class FirebaseHelper {
     
@@ -19,7 +20,7 @@ class FirebaseHelper {
     var delegate: FirebaseProtocols?
     
     
-    
+    //MARK:: Function You Call
     func uploadImage(photo: AVCapturePhoto){
         
         //First need to upload image to storage
@@ -83,18 +84,10 @@ class FirebaseHelper {
                         }
                         else {
                             
-                            self.db.collection("securityEvents")
-                                .document(email)
-                                .setData(["creation": [time],
-                                                       "dates": [theDate],
-                                                       "urls": [theDownloadURL]], merge: true) { error in
-                                if let e = error {
-                                    self.delegate?.error(aError: e)
-                                }
-                                else {
-                                    self.delegate?.pictureUploaded()
-                                }
-                            }
+                            self.createInitialPosting(reference: documentReference,
+                                                 url: theDownloadURL,
+                                                 date: theDate,
+                                                 time: time)
                         }
                     }
                 }
@@ -103,6 +96,45 @@ class FirebaseHelper {
     }
 
 }
+    
+    func getSecurityObjects (){
+        
+        guard let userEmail = Auth.auth().currentUser?.email else {return}
+        
+        let doesDocumentExists = self.db.collection("securityEvents").document(userEmail)
+        
+        doesDocumentExists.getDocument { (returnDocument, error) in
+            
+            
+            if let document = returnDocument {
+                
+                if document.exists {
+                    
+                    var securityObjects = [SecurityImageObject]()
+                    
+                    let urlHolder = document["urls"] as! [String]
+                    let dateStringHolder = document["dates"] as! [String]
+                    let creationHolder = document["creation"] as! [Double]
+                    
+                    for index in 0 ..< urlHolder.count {
+                        let tempObject = SecurityImageObject(theImage: urlHolder[index],
+                                                             theDate: dateStringHolder[index]
+                                                             , creation: creationHolder[index])
+                        securityObjects.append(tempObject)
+                    }
+                    self.delegate?.securityObjectsReturned(returnedData: securityObjects)
+                    
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    //MARK:: Helper Functions
     
     func createInitialPosting(reference: DocumentReference,
                               url: String,
