@@ -26,6 +26,7 @@
 		DDC117C92609398B00B77916 /* ViewTriggersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC117C82609398B00B77916 /* ViewTriggersViewController.swift */; };
 		DDC430D025FAA84400FBFA52 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC430CF25FAA84400FBFA52 /* LoginViewController.swift */; };
 		DDC430D325FAA85400FBFA52 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC430D225FAA85400FBFA52 /* SignUpViewController.swift */; };
+		DDC7CF76265D4FEA0009F222 /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7CF75265D4FEA0009F222 /* FirebaseHelper.swift */; };
 		DDDBFB41260977E1008FED7C /* ViewImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDBFB40260977E1008FED7C /* ViewImages.swift */; };
 		DDDD440825FACAF8004A9C3E /* ConstantsFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDD440725FACAF8004A9C3E /* ConstantsFile.swift */; };
 		DDDD442325FAD851004A9C3E /* UserHomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDD442225FAD851004A9C3E /* UserHomePageViewController.swift */; };
@@ -54,6 +55,7 @@
 		DDC117C82609398B00B77916 /* ViewTriggersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTriggersViewController.swift; sourceTree = "<group>"; };
 		DDC430CF25FAA84400FBFA52 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DDC430D225FAA85400FBFA52 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		DDC7CF75265D4FEA0009F222 /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
 		DDDBFB40260977E1008FED7C /* ViewImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImages.swift; sourceTree = "<group>"; };
 		DDDD440725FACAF8004A9C3E /* ConstantsFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsFile.swift; sourceTree = "<group>"; };
 		DDDD442225FAD851004A9C3E /* UserHomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHomePageViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				DD082AC525F95C17006DAE3F /* Main.storyboard */,
+				DD67D6A025FBE81B000DC015 /* MyAlert.swift */,
 				DD4E10B026093AF000EDFF91 /* Cells */,
 			);
 			path = View;
@@ -151,10 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				DDDD440725FACAF8004A9C3E /* ConstantsFile.swift */,
-				DD67D6A025FBE81B000DC015 /* MyAlert.swift */,
-				DD7C58D826041466005D95E2 /* DecibelAppBrain.swift */,
-				DD0D40E72603F1EE00375F96 /* CameraAppBrain.swift */,
-				DDDBFB40260977E1008FED7C /* ViewImages.swift */,
+				DDC7CF74265D4FD70009F222 /* Firbase */,
+				DDC7CF73265D4FC50009F222 /* Controls for Controllers */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -166,6 +167,24 @@
 				DD4E10B226093B4100EDFF91 /* TriggerCellTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		DDC7CF73265D4FC50009F222 /* Controls for Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DD7C58D826041466005D95E2 /* DecibelAppBrain.swift */,
+				DD0D40E72603F1EE00375F96 /* CameraAppBrain.swift */,
+				DDDBFB40260977E1008FED7C /* ViewImages.swift */,
+			);
+			path = "Controls for Controllers";
+			sourceTree = "<group>";
+		};
+		DDC7CF74265D4FD70009F222 /* Firbase */ = {
+			isa = PBXGroup;
+			children = (
+				DDC7CF75265D4FEA0009F222 /* FirebaseHelper.swift */,
+			);
+			path = Firbase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,6 +305,7 @@
 			files = (
 				DD0D40E52603F04100375F96 /* CameraViewController.swift in Sources */,
 				DD7C58D926041466005D95E2 /* DecibelAppBrain.swift in Sources */,
+				DDC7CF76265D4FEA0009F222 /* FirebaseHelper.swift in Sources */,
 				DDC430D325FAA85400FBFA52 /* SignUpViewController.swift in Sources */,
 				DD0D40E82603F1EE00375F96 /* CameraAppBrain.swift in Sources */,
 				DD5E30C625FC0D0900409A3F /* DecibelsViewController.swift in Sources */,
