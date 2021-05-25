@@ -203,27 +203,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aay-te-0Q2">
-                                <rect key="frame" x="70" y="681" width="250" height="75"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <state key="normal" title="Enter Camera Mode" backgroundImage="insightButton">
-                                    <color key="titleColor" red="0.18823529410000001" green="0.2784313725" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="cX6-LP-If8" kind="show" id="UCI-qy-ppv"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgC-5E-TZh">
-                                <rect key="frame" x="0.0" y="78" width="390" height="75"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgC-5E-TZh">
+                                <rect key="frame" x="0.0" y="81" width="390" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="nfk-2N-ebK"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <color key="textColor" red="0.18823529410000001" green="0.2784313725" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DSP-0s-gIR">
-                                <rect key="frame" x="0.0" y="161" width="390" height="497"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DSP-0s-gIR">
+                                <rect key="frame" x="0.0" y="171" width="390" height="495"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mDc-5w-TGO">
                                     <size key="itemSize" width="190" height="171"/>
@@ -237,7 +227,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gqo-mW-UHM">
                                             <rect key="frame" x="0.0" y="0.0" width="190" height="171"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="7pY-6S-FDO">
                                                     <rect key="frame" x="0.0" y="0.0" width="190" height="171"/>
@@ -278,9 +268,34 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aay-te-0Q2">
+                                <rect key="frame" x="79" y="681" width="232" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="mG5-5R-ysI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="Enter Camera Mode">
+                                    <color key="titleColor" red="0.18823529410000001" green="0.2784313725" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="cX6-LP-If8" kind="show" id="UCI-qy-ppv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aDk-pw-a8A"/>
                         <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="DSP-0s-gIR" firstAttribute="top" secondItem="fgC-5E-TZh" secondAttribute="bottom" constant="15" id="9f0-GL-UNw"/>
+                            <constraint firstItem="fgC-5E-TZh" firstAttribute="leading" secondItem="aDk-pw-a8A" secondAttribute="leading" id="KBM-id-dna"/>
+                            <constraint firstItem="DSP-0s-gIR" firstAttribute="leading" secondItem="aDk-pw-a8A" secondAttribute="leading" id="QQb-hK-o6t"/>
+                            <constraint firstItem="aay-te-0Q2" firstAttribute="top" secondItem="DSP-0s-gIR" secondAttribute="bottom" constant="15" id="Rts-a0-Gmq"/>
+                            <constraint firstItem="aDk-pw-a8A" firstAttribute="trailing" secondItem="fgC-5E-TZh" secondAttribute="trailing" id="Sji-gH-kkB"/>
+                            <constraint firstItem="DSP-0s-gIR" firstAttribute="trailing" secondItem="aDk-pw-a8A" secondAttribute="trailing" id="ZHY-p8-BSk"/>
+                            <constraint firstItem="aDk-pw-a8A" firstAttribute="bottom" secondItem="aay-te-0Q2" secondAttribute="bottom" constant="25" id="dwA-yx-4Yw"/>
+                            <constraint firstItem="aDk-pw-a8A" firstAttribute="trailing" secondItem="aay-te-0Q2" secondAttribute="trailing" constant="79" id="h1P-Pl-hfE"/>
+                            <constraint firstItem="aay-te-0Q2" firstAttribute="leading" secondItem="aDk-pw-a8A" secondAttribute="leading" constant="79" id="hpf-QD-IOS"/>
+                            <constraint firstItem="fgC-5E-TZh" firstAttribute="top" secondItem="aDk-pw-a8A" secondAttribute="top" constant="25" id="kaM-Ih-a4Q"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2sh-et-ihs">
                         <barButtonItem key="rightBarButtonItem" title="Sign Out" id="szH-mO-rmN">
