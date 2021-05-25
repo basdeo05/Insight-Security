@@ -9,19 +9,21 @@ import UIKit
 import Firebase
 
 class HomeViewController: UIViewController {
+    
     //outlets
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var forgotPasswordOutlet: UIButton!
-    
     @IBOutlet weak var loginOutlet: UIButton!
     @IBOutlet weak var signUpOutlet: UIButton!
     
     //control for animation
     var turnTransformation:CGFloat = 4
     
-    //When set to 3 will show forgot password
+    //When amount of login is set two 3 the forgot password will no longer be set to hidden
     var amountOfLogin = 0
+    
+    //delegate used to inform homeViewController the amount of time there was a failed login attempt
     var delegate: loginAttempts?
     
     //access to constants file
@@ -35,11 +37,13 @@ class HomeViewController: UIViewController {
         //hide forgot password button until they put in wrong password 3 times
         forgotPasswordOutlet.isHidden = true
         
-        //animate image
+        //animate the logo image
         animateImage()
         
-        //show forgot password button after three login attempts
+        //listen for when there is a failed login attempt
         delegate = self
+        
+        //Styling my outlets
         Styling.customButton(for: loginOutlet)
         Styling.customButton(for: signUpOutlet)
         Styling.customButton(for: forgotPasswordOutlet)
@@ -47,6 +51,7 @@ class HomeViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        //If user is already signed in send straigh to the user home page
         if (UserDefaults.standard.bool(forKey: k.successSignIn)){
             performSegue(withIdentifier: k.homeToUserHome, sender: self)
         }
@@ -79,6 +84,9 @@ class HomeViewController: UIViewController {
     }
 }
 
+//Listen to when delegate method is called in loginViewController.
+//If this delegate method is called increase the failed login attempts count
+//If failed login equals 3 animate in the forgor password button
 extension HomeViewController: loginAttempts {
     func showForgotPassword() {
         

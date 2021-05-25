@@ -131,8 +131,8 @@
 			children = (
 				DD082AC525F95C17006DAE3F /* Main.storyboard */,
 				DD67D6A025FBE81B000DC015 /* MyAlert.swift */,
-				DD4E10B026093AF000EDFF91 /* Cells */,
 				DD096C2E265D87DA009254C4 /* Styling.swift */,
+				DD4E10B026093AF000EDFF91 /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";

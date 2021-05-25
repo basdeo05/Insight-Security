@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import Photos
+import FirebaseFirestore
 
 protocol cameraProtcol {
     func setupCameraPreview()

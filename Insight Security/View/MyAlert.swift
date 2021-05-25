@@ -88,7 +88,7 @@ class MyAlert: UIViewController {
         let titleLabel = UILabel(frame: CGRect(x: 0,
                                                y: 0,
                                                width: alertView.frame.size.width,
-                                               height: 20))
+                                               height: 30))
         titleLabel.text = title
         titleLabel.textColor = #colorLiteral(red: 0.2434413433, green: 0.3513373435, blue: 0.4444853067, alpha: 1)
         titleLabel.textAlignment = .center
@@ -100,12 +100,13 @@ class MyAlert: UIViewController {
         //Width will be the width of the alert view
         //I know 220 by subtracting alert frame height from title lable height
         let messageLabel = UILabel(frame: CGRect(x: 0,
-                                               y: 20,
+                                               y: 30,
                                                width: alertView.frame.size.width,
                                                height: 80))
         messageLabel.numberOfLines = 0
         messageLabel.text = message
         messageLabel.textColor = #colorLiteral(red: 0.2434413433, green: 0.3513373435, blue: 0.4444853067, alpha: 1)
+        messageLabel.backgroundColor = .white
         messageLabel.textAlignment = .center
         alertView.addSubview(messageLabel)
         

@@ -14,13 +14,19 @@ protocol loginAttempts {
 
 class LoginViewController: UIViewController{
 
+    //outlets
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButtonOutlet: UIButton!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     
+    //inform the home view controller of failed login attempts
     var delegate: loginAttempts?
+    
+    //access to constants file
     let k = K()
+    
+    //show user alerts using custom alert classb
     var myAlert = MyAlert()
     
     override func viewDidLoad() {
@@ -35,6 +41,7 @@ class LoginViewController: UIViewController{
         passwordTextField.attributedPlaceholder =  NSAttributedString(string: "Password",
                                                                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         
+        //Styling outlets
         Styling.customButton(for: cancelButtonOutlet)
         Styling.customButton(for: loginButtonOutlet)
         Styling.customTextField(for: emailTextField)
@@ -59,7 +66,7 @@ class LoginViewController: UIViewController{
                     
                     if let e = error {
                         //Alert that an error occured when signing in
-                        self.myAlert.showAlert(with: "Error Trying To Login In",
+                        self.myAlert.showAlert(with: "Error Trying To Login",
                                                message: e.localizedDescription,
                                                on: self,
                                                wasSuccess: false, completionHandler: {

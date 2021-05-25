@@ -10,12 +10,16 @@ import Firebase
 
 class SignUpViewController: UIViewController {
 
+    //outlets
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     @IBOutlet weak var signUpButtonOutlet: UIButton!
     
+    //access to constants file
     let k = K()
+    
+    //let me create custom alerts
     let alert = MyAlert()
     
     override func viewDidLoad() {
@@ -26,6 +30,8 @@ class SignUpViewController: UIViewController {
         
         passwordTextField.attributedPlaceholder =  NSAttributedString(string: "Password",
                                                                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        
+        //Style my outlets
         Styling.customButton(for: cancelButtonOutlet)
         Styling.customButton(for: signUpButtonOutlet)
         Styling.customTextField(for: emailTextField)
@@ -33,6 +39,7 @@ class SignUpViewController: UIViewController {
         
     }
     
+    //Go back to previous screen if canceled button is pressed
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }

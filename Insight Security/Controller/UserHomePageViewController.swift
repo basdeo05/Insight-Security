@@ -10,16 +10,15 @@ import Firebase
 
 class UserHomePageViewController: UIViewController {
 
+    //outlets
     @IBOutlet weak var emailLabel: UILabel!
-    
     @IBOutlet weak var securityImageCollectionView: UICollectionView!
-    
     @IBOutlet weak var cameraModeOutlet: UIButton!
     
-    
-    
+    //access to constants file
     let k = K()
     
+    //connect this controller to the model
     var control = HomeAppBrain()
     
     
@@ -36,8 +35,11 @@ class UserHomePageViewController: UIViewController {
             emailLabel.text = "Welcome \n \(userEmail)"
         }
         
+        //Model handles calling database to populate the collectionView
+        //Will update the collectionView in the delegate function when network called has been completed
         control.updateCollectionView()
         
+        //Styling
         Styling.customButton(for: cameraModeOutlet)
         emailLabel.isHidden = true
     }
@@ -50,6 +52,7 @@ class UserHomePageViewController: UIViewController {
         }
     }
     
+    //Signout user when sign out button is pressed
     @IBAction func signOutButtonPressed(_ sender: Any) {
         
         do {
@@ -64,6 +67,9 @@ class UserHomePageViewController: UIViewController {
     }
 }
 
+//Network call has been made successfully
+//Delegate method is returning us the information neeeded to populate the collectionView.
+//Call reloadData in matin thread
 extension UserHomePageViewController: HomeProtocol {
     func updateUI(returnedData: [SecurityImageObject]) {
         
@@ -72,7 +78,6 @@ extension UserHomePageViewController: HomeProtocol {
         DispatchQueue.main.async {
             self.securityImageCollectionView.reloadData()
         }
-
     }
 }
 
@@ -88,9 +93,6 @@ extension UserHomePageViewController: UICollectionViewDataSource, UICollectionVi
         cell.cellLabel.text = control.securityObjects[indexPath.row].theDate
         cell.setCellImage(theURL: control.securityObjects[indexPath.row].theImage)
         return cell
-        
-        
-        
     }
     
     func collectionView( _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -109,15 +111,4 @@ extension UserHomePageViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView( _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
             return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
         }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 }
