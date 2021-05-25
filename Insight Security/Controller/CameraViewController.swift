@@ -27,6 +27,10 @@ class CameraViewController: UIViewController{
 }
 
 extension CameraViewController: cameraProtcol {
+    func pictureUploadedToDatabase() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func setupCameraPreview() {
         
         class PreviewClass: UIView {
