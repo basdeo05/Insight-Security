@@ -203,7 +203,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgC-5E-TZh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgC-5E-TZh">
                                 <rect key="frame" x="0.0" y="81" width="390" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="nfk-2N-ebK"/>
@@ -306,6 +306,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cameraModeOutlet" destination="aay-te-0Q2" id="w1K-dN-YbS"/>
                         <outlet property="emailLabel" destination="fgC-5E-TZh" id="QUh-zd-jfb"/>
                         <outlet property="securityImageCollectionView" destination="DSP-0s-gIR" id="US0-ih-WxY"/>
                     </connections>

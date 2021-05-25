@@ -14,6 +14,10 @@ class UserHomePageViewController: UIViewController {
     
     @IBOutlet weak var securityImageCollectionView: UICollectionView!
     
+    @IBOutlet weak var cameraModeOutlet: UIButton!
+    
+    
+    
     let k = K()
     
     var control = HomeAppBrain()
@@ -29,10 +33,21 @@ class UserHomePageViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         if let userEmail = Auth.auth().currentUser?.email {
-            emailLabel.text = userEmail
+            emailLabel.text = "Welcome \n \(userEmail)"
         }
         
         control.updateCollectionView()
+        
+        Styling.customButton(for: cameraModeOutlet)
+        emailLabel.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 2) {
+            self.emailLabel.isHidden = false
+        }
     }
     
     @IBAction func signOutButtonPressed(_ sender: Any) {
