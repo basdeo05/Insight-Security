@@ -340,12 +340,12 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vO4-4L-Cmi">
-                                        <rect key="frame" x="90" y="532.33333333333337" width="200" height="60"/>
+                                        <rect key="frame" x="121.66666666666669" y="532.33333333333337" width="137" height="60"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="2al-sU-Srn"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="2al-sU-Srn"/>
                                             <constraint firstAttribute="height" constant="60" id="px4-a4-cVj"/>
                                         </constraints>
-                                        <state key="normal" title="Start Security Mode" backgroundImage="insightButton">
+                                        <state key="normal" title="Start Security Mode">
                                             <color key="titleColor" red="0.18823529410000001" green="0.2784313725" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -516,7 +516,6 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
-        <image name="insightButton" width="520" height="96"/>
         <image name="redCircle" width="228" height="230"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

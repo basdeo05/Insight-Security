@@ -23,6 +23,7 @@ class DecibelsViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.9450049996, green: 0.9451631904, blue: 0.9449841976, alpha: 1)
         circleImage.isHidden = true
         decibelBrain.delegate = self
+        Styling.customButton(for: securityButton)
         
     }
     
