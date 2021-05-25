@@ -16,6 +16,9 @@ class LoginViewController: UIViewController{
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButtonOutlet: UIButton!
+    @IBOutlet weak var cancelButtonOutlet: UIButton!
+    
     var delegate: loginAttempts?
     let k = K()
     var myAlert = MyAlert()
@@ -31,6 +34,11 @@ class LoginViewController: UIViewController{
         
         passwordTextField.attributedPlaceholder =  NSAttributedString(string: "Password",
                                                                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        
+        Styling.customButton(for: cancelButtonOutlet)
+        Styling.customButton(for: loginButtonOutlet)
+        Styling.customTextField(for: emailTextField)
+        Styling.customTextField(for: passwordTextField)
     }
     
     //When cancel press go back to home screen

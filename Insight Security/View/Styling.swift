@@ -19,6 +19,13 @@ class Styling {
         aButton.setTitleColor(tier4, for: .normal)
     }
     
+    static func customTextField (for aTextField: UITextField){
+        aTextField.layer.cornerRadius = aTextField.frame.height / 2
+        aTextField.backgroundColor = .white
+        aTextField.textColor = .black
+        
+    }
+    
     
     
     
