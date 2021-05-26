@@ -20,16 +20,30 @@ protocol cameraProtcol {
 
 class CameraAppBrain {
     
+    //communite to the viewController with delegate methods
     var delegate: cameraProtcol?
+    
+    //Session to take a photo
     let captureSession = AVCaptureSession()
+    
+    //Setting i want for the camera session
     let settings = AVCapturePhotoSettings()
+    
+    //Where the imae is going after image session
     let photoOutput = AVCapturePhotoOutput()
+    
+    //Connect to database and storage
     let storage = Storage.storage()
     let db = Firestore.firestore()
+    
+    //Networking class
     let firebase = FirebaseHelper()
     
     
     func checkCameraAuthorization () {
+        
+        //Check if permissoin was granted for the camera
+        //If we have camera permmission check to see if we have photo library permisson
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             //setup Capture session
@@ -52,7 +66,7 @@ class CameraAppBrain {
         }
     }
     
-    
+    //If we have photolibrary permission set up the capture session to take a picture
     func checkPhotoLibraryPermission() {
         
         PHPhotoLibrary.requestAuthorization { (status) in
@@ -71,16 +85,19 @@ class CameraAppBrain {
         }
     }
     
+    //Setup session saying I want to use the back camera
+    //Try to add the desiered camera to the session
+    //Create preview for camera
     func setupCaptureSession (){
         
         //setting up session to back camera
         captureSession.beginConfiguration()
         
-        let videoDevice = AVCaptureDevice.default(.builtInDualWideCamera,
+        guard let videoDevice = AVCaptureDevice.default(.builtInDualWideCamera,
                                                   for: .video,
-                                                  position: .back)
+                                                  position: .back) else {return}
         
-        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice!),
+        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice),
               captureSession.canAddInput(videoDeviceInput)
         
         else {return}
@@ -109,8 +126,8 @@ class CameraAppBrain {
         //captureSession.startRunning()
         
         
-                  let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
-                  let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
+        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
+        let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
                                        kCVPixelBufferWidthKey as String: 160,
                                        kCVPixelBufferHeightKey as String: 160]
         settings.previewPhotoFormat = previewFormat

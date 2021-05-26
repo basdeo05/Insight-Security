@@ -43,6 +43,7 @@ class DecibelAppBrain {
     var aTimer: Timer?
     
     //variable to hold the average decibels
+    //Once this is set means it is time to continous listen to the room
     var theAverageDecibleOfTheRoom: Float? {
         didSet{
             continousRecording()
@@ -52,7 +53,8 @@ class DecibelAppBrain {
     var shouldContinousRecord = false
     
     
-    
+    //Set should contious record to true
+    //Record get the decibels every second
     func continousRecording () {
         
         shouldContinousRecord = true
@@ -72,9 +74,11 @@ class DecibelAppBrain {
     
     
     
-    //get the decibels for the room for 30 seconds
+    //get the decibels for the room
+    //If noise spike detected stop the timer
+    //Delegate method will call recoder stopped informing of noise spike
     @objc func getContinouseDecibels(){
-        print ("Contunous Called")
+        print ("Continous Called")
         
         recorder?.updateMeters()
         if let decibels = recorder?.peakPower(forChannel: 0){
@@ -86,7 +90,6 @@ class DecibelAppBrain {
                     recorder?.stop()
                     print("Noise Spike detected! \(decibels) : \(average)")
                 }
-                
             }
         }
     }
@@ -145,7 +148,7 @@ class DecibelAppBrain {
             try theAudioSession.setActive(true)
             
             //Check Permissions
-            //Iif not allowed return fasle and create an alert
+            //If not allowed return false and create an alert
             theAudioSession.requestRecordPermission { (userResponse) in
                 if (userResponse == false){
                     

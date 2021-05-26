@@ -21,6 +21,7 @@ class CameraViewController: UIViewController{
 
         //1.
         //I need to see if I have permissons to the camera and access to the photo library
+        //Ask model to check this
         appBrain.checkCameraAuthorization()
     }
     

@@ -15,13 +15,20 @@ class DecibelsViewController: UIViewController {
     @IBOutlet weak var circleImage: UIImageView!
     @IBOutlet weak var decibelsLabel: UILabel!
     
+    //connect to the model
     var decibelBrain = DecibelAppBrain()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Want a white background when user first load the screen
         view.backgroundColor = #colorLiteral(red: 0.9450049996, green: 0.9451631904, blue: 0.9449841976, alpha: 1)
+        
+        //Want to hide the circle indicating im listeneing
         circleImage.isHidden = true
+        
+        
         decibelBrain.delegate = self
         Styling.customButton(for: securityButton)
         
@@ -32,8 +39,11 @@ class DecibelsViewController: UIViewController {
     //User clicked start security mode button
     @IBAction func startButtonPressed(_ sender: UIButton) {
         
+        //First ask the model if I have permission to record
         if (decibelBrain.checkPermissions()){
             
+            //Check to see if recoder is intialized to record
+            //If not initialize it
             if (decibelBrain.recorder == nil){
                 decibelBrain.recorder = decibelBrain.recorderCreator()
                 decibelBrain.recorder?.isMeteringEnabled = true
@@ -41,13 +51,20 @@ class DecibelsViewController: UIViewController {
             }
             
             
-            
+            //The first time the button is pressed we will record
             if (decibelBrain.shouldRecord){
+                
+                //Dont want user to keep reseting the recorder
                 decibelBrain.shouldRecord = false
+                
+                //Indicate to the user I am recording
                 decibelBrain.delegate?.animateBackground()
                 
+                //Record for 5 seconds
+                //5 seconds for demo purposes, suppose to be 30
                 decibelBrain.recorder!.record(forDuration: 5)
                 
+                //Every second get the current decibel levels by calling the model
                 let tempTimer = Timer.scheduledTimer(timeInterval: 1,
                                                      target: decibelBrain.self,
                                                      selector: #selector(decibelBrain.getDecibels),
@@ -57,6 +74,8 @@ class DecibelsViewController: UIViewController {
                 decibelBrain.aTimer?.fire()
             }
             
+            //If recoder should not be recoder go back to white screen
+            
             else {
                 decibelBrain.delegate?.getBackToOriginal()
             }
@@ -64,6 +83,7 @@ class DecibelsViewController: UIViewController {
     }
 }
 
+//Animations
 extension DecibelsViewController: decibelProtocol {
     
     func animateBackground() {
@@ -174,7 +194,9 @@ extension DecibelsViewController: decibelProtocol {
     }
 }
 
-
+//Will stop recording for two reasons
+//First: the 30 second period to get the average room is up
+//Second: there was a noise spike to go to camera class
 //MARK:: Audio Recorder Delegate
 extension DecibelsViewController: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
